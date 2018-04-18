@@ -19,8 +19,7 @@ public class NodeTest {
         a2.setPoints(22);
         n2.setPoints(8);
         System.out.print("tree: " + root.toString()+"\n");
-
-
-
+        // a2.delete();
+        // System.out.print("tree: " + root.toString()+"\n");
     }
 }

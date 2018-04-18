@@ -10,6 +10,8 @@ public final class Shell {
     private Shell(){}
 
     public static void main ( String [] args) throws IOException {
+
+        Trie trie = new Trie();
         BufferedReader stdin = new BufferedReader(new InputStreamReader(System.in));
 
         boolean quit = false;
@@ -20,8 +22,8 @@ public final class Shell {
                 break;
             }
 
-            Command command = new Command(input);
-            command.runCommand();
+            Command command = new Command(input, trie);
+            command.execute();
         }
     }
 }

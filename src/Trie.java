@@ -9,6 +9,10 @@ public class Trie {
         this.root = new Node();
     }
 
+    public void newTrie(){
+        this.root = new Node();
+    }
+
     public boolean add(String key, Integer points) {
 
         Node node = this.root;
@@ -32,6 +36,10 @@ public class Trie {
             return true;
         } else return false;
 
+    }
+
+    public boolean delete(String key){
+        return true;
     }
 
     public int getPoints(String key) {
@@ -67,8 +75,20 @@ public class Trie {
         return last;
     }
 
+    public void help(){
+        System.out.print("Valid commands are: HELP, NEW, TRIE, QUIT, ADD <key> <points>, CHANGE <key> <points>, DELETE <key>\n");
+    }
+    public void quit(){
+
+    }
+    public void trie(Trie trie){
+        trie.toString();
+    }
+
+
+
     @Override
     public String toString() {
-        return this.root.toString();
+        return this.root.toString() + "\n";
     }
 }

@@ -9,6 +9,7 @@ public class TrieTest {
         t.add("leon", 8);
         t.add("paul", 20);
         System.out.print(t.root.toString() + "\n");
+        System.out.print("points von hans: " +t.getPoints("hans") + "\n");
     // System.out.print(t.getPoints("lena") + "\n");
         t.change("hans", 6);
         System.out.print(t.root.toString() + "\n");

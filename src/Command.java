@@ -3,58 +3,65 @@
  */
 public class Command {
 
-    private String commandString;
     private String [] commandTokens;
     private String command;
     private String key;
-    private String value;
+    private int points;
+    private Trie trie;
+    private boolean valid;
 
 
-    public Command(String commandString){
-        this.commandString = commandString;
-    }
+    public Command(String commandString, Trie trie){
+        this.commandTokens = commandString.trim().split("\\s+");
+        this.trie = trie;
 
-    public void runCommand(){
-
-        this.commandTokens = this.commandString.trim().split("\\s+");
         switch (commandTokens.length){
             case 1:
-                command = commandTokens[0].toLowerCase();
-                if ( "new trie help quit".contains(command) ) {
-                    this.execute(command);
-                } else invalidCommand();
+                this.command = commandTokens[0].toLowerCase();
+                if ( "new trie help quit".contains(command) ) this.valid = true;
+                else this.valid = false;
                 break;
             case 2:
-                command = commandTokens[0].toLowerCase();
-                key = commandTokens[1].toLowerCase();
-                if ("delete points".contains(command)) {
-                    this.execute(command, key);
-                } else invalidCommand();
+                this.command = commandTokens[0].toLowerCase();
+                this.key = commandTokens[1].toLowerCase();
+                if ("delete points".contains(command)) this.valid = true;
+                else this.valid = false;
                 break;
             case 3:
-                command = commandTokens[0].toLowerCase();
-                key = commandTokens[1].toLowerCase();
-                value = commandTokens[2].toLowerCase();
-                if ("add change".contains(command)) {
-                    this.execute(command, key, value);
-                } else invalidCommand();
+                this.command = commandTokens[0].toLowerCase();
+                this.key = commandTokens[1].toLowerCase();
+                this.points = Integer.parseInt(commandTokens[2].toLowerCase());
+                if ("add change".contains(command)) this.valid = true;
+                else this.valid = false;
                 break;
             default:
-                this.invalidCommand();
+                this.valid = false;
         }
     }
 
-
-    private void execute(String cmd){
-        System.out.print("executing " + cmd + "\n" );
-    }
-
-    private void execute(String cmd, String key){
-        System.out.print("executing " + cmd + " " + key + "\n" );
-    }
-
-    private void execute(String cmd, String key, String value){
-        System.out.print("executing " + cmd + " " + key + " " + value+ "\n" );
+    public void execute(){
+        if ( this.valid ){
+            switch(this.command) {
+                case "help":
+                    this.trie.help(); break;
+                case "quit":
+                    this.trie.quit(); break;
+                case "trie":
+                    System.out.print(this.trie.toString()); break;
+                case "new":
+                    this.trie.newTrie(); break;
+                case "add":
+                    this.trie.add(this.key, this.points); break;
+                case "change":
+                    this.trie.change(this.key, this.points); break;
+                case "delete":
+                    this.trie.delete(this.key); break;
+                case "points":
+                    this.trie.getPoints(this.key); break;
+                default:
+                    this.invalidCommand();
+            }
+        } else this.invalidCommand();
     }
 
     private void invalidCommand(){

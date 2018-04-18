@@ -54,8 +54,24 @@ public class Node {
     public void find(Node node){
 
     }
-    public void delete (Node nodeToDelete){
 
+    public boolean delete (){
+
+        boolean noKids = true;
+        int i = 0;
+        while (noKids == true || i < this.children.length){
+            if ( this.children[i] != null ) noKids = false;
+            i++;
+        }
+
+        if ( noKids ){
+            this.points = -1;
+            int charIndex = (int) ch - 97;
+            this.parent.children[charIndex] = null;
+            this.parent.delete();
+            this.ch = ' ';
+            return true;
+        } else return false;
     }
 
     @Override
